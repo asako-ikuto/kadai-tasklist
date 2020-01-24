@@ -61,7 +61,7 @@ class TasksController extends Controller
         $task->content = $request->content;
         $task->save();
         
-        return redirect('/');
+        return back();//return back();から変更
     }
 
     /**
@@ -122,11 +122,26 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     
+    
     public function destroy($id)
     {
-        $task = Task::find($id);
-        $task->delete();
+        $task = \App\Task::find($id);
         
-        return redirect('/');
+        if (\Auth::id() === $task->user_id){
+
+        //$task = Task::find($id);
+       
+        $task->delete();
+        }
+        
+        return back();
     }
 }
+     
+     
+
+    
+     
+     
+     
